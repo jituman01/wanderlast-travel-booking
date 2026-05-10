@@ -30,7 +30,7 @@ const Navbar = () => {
         />
       </div>
 
-      <ul className="flex gap-3">
+      <ul className="flex gap-4">
         <li>
           <Link href={"/profile"}>Profile</Link>
         </li>
