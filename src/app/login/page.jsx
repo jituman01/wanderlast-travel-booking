@@ -8,10 +8,12 @@ import {
   Form,
   Input,
   Label,
+  Separator,
   TextField,
 } from '@heroui/react';
 import { redirect } from 'next/navigation';
 import React from 'react';
+import { FcGoogle } from 'react-icons/fc';
 
 const LoginPage = () => {
   const onSubmit = async e => {
@@ -38,6 +40,12 @@ const LoginPage = () => {
 
     // console.log({data,error})
   };
+
+  const handleGoogleSignin = async () => {
+      await authClient.signIn.social({
+        provider: "google"
+      })
+    }
 
   return (
     <div className="max-w-7xl mx-auto mt-7">
@@ -95,6 +103,16 @@ const LoginPage = () => {
             </Button>
           </div>
         </Form>
+
+        <div className="flex justify-center items-center gap-3">
+                    <Separator/>
+                   <div className="whitespace-nowrap"> Or sign up with </div>
+                      <Separator/>
+                    </div>
+                
+                <div className='w-full'>
+                  <Button onClick={handleGoogleSignin} variant='outline' className={'w-full rounded-none'}><FcGoogle />Sign in with Google</Button>
+                </div>
       </Card>
     </div>
   );
