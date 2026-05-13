@@ -4,6 +4,7 @@ import React from 'react';
 import { FaRegCalendar } from 'react-icons/fa6';
 import { LuMapPin } from 'react-icons/lu';
 import { DeleteAlert } from '../../../../DeleteAlert';
+import BookingCard from '@/app/components/BookingCard';
 
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -31,7 +32,8 @@ const DestinationDetailsPage = async ({ params }) => {
         width={800}
       />
 
-      <div className="p-2">
+      <div className="flex justify-between">
+        <div className="p-2">
         <div className="flex items-center gap-1">
           <LuMapPin /> <span>{country}</span>
         </div>
@@ -45,15 +47,17 @@ const DestinationDetailsPage = async ({ params }) => {
             </div>
           </div>
 
-          <div>
-            <h3 className="text-2xl font-bold">$ {price}</h3>
-          </div>
+          
         </div>
 
         <h1 className="mt-10 text-2xl font-bold">Overview</h1>
 
         <p>{description}</p>
       </div>
+
+      <BookingCard destination={destination}></BookingCard>
+      </div>
+
     </div>
   );
 };
