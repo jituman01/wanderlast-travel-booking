@@ -2,7 +2,8 @@ import DestinationCard from '../components/DestinationCard';
 
 const DestinationPage = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destination`);
-  const destinations = await res.json();
+    const destinations = await res.json();
+    export const dynamic = 'force-dynamic';
 
   return (
     <div className="max-w-7xl mx-auto">

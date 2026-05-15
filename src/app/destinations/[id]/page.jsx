@@ -8,35 +8,37 @@ import BookingCard from '@/app/components/BookingCard';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
   const token = await auth.api.getToken({
-    headers: await headers()
-  })
+    headers: await headers(),
+  });
   const sessionToken = token?.token || tokenData;
   // console.log(token);
-  
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/destination/${id}`, {
-    headers: {
-      authorization: `Bearer ${sessionToken}`
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/destination/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${sessionToken}`,
+      },
     }
-  });
+  );
 
   const destination = await res.json();
   const { imageUrl, price, destinationName, duration, country, description } =
     destination;
-  
-  return (
-    <div className='max-w-7xl mx-auto'>
 
+  return (
+    <div className="max-w-7xl mx-auto">
       <div className="flex  items-center gap-3 justify-end mt-5 mb-3">
         <EditModal destination={destination} />
-        <DeleteAlert destination={destination}/>
-       
+        <DeleteAlert destination={destination} />
       </div>
 
-       <Image
+      <Image
         className="w-full h-100 object-cover"
         alt={destinationName}
         src={imageUrl}
@@ -46,30 +48,27 @@ const DestinationDetailsPage = async ({ params }) => {
 
       <div className="flex justify-between">
         <div className="p-2">
-        <div className="flex items-center gap-1">
-          <LuMapPin /> <span>{country}</span>
-        </div>
-        <div className="flex justify-between">
-          <div>
+          <div className="flex items-center gap-1">
+            <LuMapPin /> <span>{country}</span>
+          </div>
+          <div className="flex justify-between">
             <div>
-              <h2 className="text-xl font-bold">{destinationName}</h2>
-            </div>
-            <div className="flex gap-1 items-center">
-              <FaRegCalendar /> {duration}
+              <div>
+                <h2 className="text-xl font-bold">{destinationName}</h2>
+              </div>
+              <div className="flex gap-1 items-center">
+                <FaRegCalendar /> {duration}
+              </div>
             </div>
           </div>
 
-          
+          <h1 className="mt-10 text-2xl font-bold">Overview</h1>
+
+          <p>{description}</p>
         </div>
 
-        <h1 className="mt-10 text-2xl font-bold">Overview</h1>
-
-        <p>{description}</p>
+        <BookingCard destination={destination}></BookingCard>
       </div>
-
-      <BookingCard destination={destination}></BookingCard>
-      </div>
-
     </div>
   );
 };
